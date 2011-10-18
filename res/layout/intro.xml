@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:background="@drawable/barcos">
+	<Button android:layout_height="wrap_content" android:text="@string/ok_intro_text"
+		android:id="@+id/ok_intro_btn" android:layout_width="match_parent" android:gravity="center"></Button>
+	<Button android:layout_height="wrap_content" android:text="@string/intro_btn_text" android:layout_width="match_parent" android:gravity="center" android:id="@+id/intro_btn"></Button>
+	<Button android:layout_height="wrap_content" android:text="@string/credits_text" android:layout_width="match_parent" android:gravity="center" android:id="@+id/credits_btn"></Button>
+</LinearLayout>

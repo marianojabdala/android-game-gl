@@ -1,0 +1,19 @@
+# use glob syntax.
+syntax: glob
+*.class
+
+# Temporary files used by the vim editor.
+*.swp
+
+# Random OS stuff
+.DS_Store
+Thumbs.db
+
+# switch to regexp syntax.
+syntax: regexp
+
+# ctags metafile
+^tags
+
+^gen
+^bin/

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/accept_decline_popup" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:background="#444444"
+	android:padding="10px" android:orientation="vertical">
+	
+	<Button android:layout_height="wrap_content"
+		android:layout_width="match_parent" android:text="@string/accept_war"
+		android:id="@+id/go_to_war_btn"></Button>
+	<Button android:layout_height="wrap_content"
+		android:layout_width="match_parent" android:id="@+id/decline_war_btn"
+		android:text="@string/decline_war"></Button>
+	<Button android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/declare_war" android:id="@+id/declare_war_btn"></Button>
+	<Button android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/close" android:id="@+id/close_btn"></Button>
+
+</LinearLayout>

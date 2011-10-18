@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BattleShip</string>
+    <string name="intro">Battleship is a long-standing two-player game from Milton Bradley in which the object is to sink the other players 
+    five hidden ships by calling out spots on a target grid to locate the fleet. 
+    A combination of luck and strategy will help players win the game by knocking out their opponents 
+    destroyer, submarine, cruiser, carrier and battleship.</string>
+    <string name="getParticipants">Get Participants</string>
+    <string name="play_btn">Play</string>
+    <string name="nickname_label">Introduce your nickname</string>
+    <string name="ok_intro_text">Enter the Game</string>
+    <string name="credits_text">Credits</string>
+    <string name="back_text">Back</string>
+    <string name="intro_btn_text">Introduction</string>
+    <string name="userName_logged_text"></string>
+    <string name="accept_war">Go to War</string>
+    <string name="decline_war">Decline War</string>
+    <string name="declare_war">Declare War</string>
+    <string name="credits_large">This application was made by Fernando Hernandez( Zeta ) and Mariano Abdala, if you want to contact them write and email to fernando.hernandez@globallogic.com and mariano.abdala@globallogic.com. 
+    Thanks for using our game!!!!</string>
+    <string name="close">Close</string>
+</resources>
