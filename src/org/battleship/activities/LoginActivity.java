@@ -5,8 +5,10 @@ package org.battleship.activities;
 
 import org.battleship.R;
 import org.battleship.model.Constants;
+import org.battleship.model.Notification;
 import org.battleship.model.User;
 import org.battleship.utils.ClientRest;
+import org.battleship.utils.JsonUtils;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -58,8 +60,8 @@ public class LoginActivity extends Activity {
 
 					try {
 						mclientRest.execute();
-						
-						mcurrentUser.token = mclientRest.response;
+						Notification notif = (Notification)JsonUtils.getInstance().parseResponse( mclientRest.response,"string" );
+						mcurrentUser.token = (String)notif.data;
 					
 					}catch (Exception e) {
 						Log.e(LoginActivity.CLASSTAG, e.getMessage(),e);

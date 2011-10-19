@@ -3,9 +3,11 @@ package org.battleship.controller;
 import java.util.ArrayList;
 
 import org.battleship.model.Constants;
+import org.battleship.model.Notification;
+import org.battleship.model.NotificationArray;
 import org.battleship.model.Participant;
 import org.battleship.utils.ClientRest;
-import org.json.JSONArray;
+import org.battleship.utils.JsonUtils;
 
 import android.util.Log;
 
@@ -28,11 +30,14 @@ public class RetrieveParticipants {
 					Constants.BASE_REST_URL + "/"+ Constants.GET_USER_BY_STATE+ "/"
 							+ token + "/" + userState);
 			clientRest.execute();
-			JSONArray jsonArray = new JSONArray(clientRest.response );
-			for (int i = 0; i < jsonArray.length(); i++) {
+			
+			NotificationArray notif = (NotificationArray)JsonUtils.getInstance().parseResponse(clientRest.response,"array");
+			String[] users = (String[])notif.data;
+			
+			for (String user : users) {
 				Participant p = new Participant();
-				p.username = jsonArray.getString(i);
-				results.add(p);
+				p.username = user;
+				results.add(p);	
 			}
 		} catch (Exception e) {
 			Log.e("RetrieveParticipants.CLASSTAG", e.getMessage(),e);
