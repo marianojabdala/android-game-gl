@@ -7,8 +7,7 @@ package org.battleship.model;
  * @author fernando.hernandez
  *
  */
-public class Notification {
+public class BaseNotification {
 	public String errorMsg;
-	public Object data;
 	public String status;
 }

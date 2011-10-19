@@ -5,7 +5,7 @@ package org.battleship.activities;
 
 import org.battleship.R;
 import org.battleship.model.Constants;
-import org.battleship.model.Notification;
+import org.battleship.model.NotificationString;
 import org.battleship.model.User;
 import org.battleship.utils.ClientRest;
 import org.battleship.utils.JsonUtils;
@@ -60,8 +60,8 @@ public class LoginActivity extends Activity {
 
 					try {
 						mclientRest.execute();
-						Notification notif = (Notification)JsonUtils.getInstance().parseResponse( mclientRest.response,"string" );
-						mcurrentUser.token = (String)notif.data;
+						NotificationString notif = (NotificationString)JsonUtils.getInstance().parseResponse( mclientRest.response,NotificationString.class );
+						mcurrentUser.token = notif.data;
 					
 					}catch (Exception e) {
 						Log.e(LoginActivity.CLASSTAG, e.getMessage(),e);

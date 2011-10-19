@@ -1,15 +1,12 @@
 package org.battleship.utils;
 
-import org.battleship.model.Notification;
-import org.battleship.model.NotificationArray;
+import org.battleship.model.BaseNotification;
 
 import com.google.gson.Gson;
 
 public class JsonUtils {
 	
 	private static JsonUtils instance;
-	private Notification notificationString;
-	private NotificationArray notificationArray;
 	private Gson gson;
 	
 	private JsonUtils(){
@@ -23,12 +20,7 @@ public class JsonUtils {
 		return instance;
 	}
 	
-	public Object parseResponse( String response ,String type){
-		if ( type.equalsIgnoreCase("array")){
-			return notificationArray = gson.fromJson(response, NotificationArray.class);
-		}else{
-			return notificationString = gson.fromJson(response, Notification.class);
+	public  BaseNotification parseResponse( String response, Class<? extends BaseNotification> clazz){
+			return  gson.fromJson(response, clazz);
 		}
-	}
-	
 }

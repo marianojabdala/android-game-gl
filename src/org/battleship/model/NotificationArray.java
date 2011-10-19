@@ -1,7 +1,5 @@
 package org.battleship.model;
 
-public class NotificationArray {
-	public String errorMsg;
+public class NotificationArray extends BaseNotification {
 	public String[] data;
-	public String status;
 }

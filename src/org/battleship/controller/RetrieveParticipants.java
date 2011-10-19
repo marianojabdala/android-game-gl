@@ -3,7 +3,6 @@ package org.battleship.controller;
 import java.util.ArrayList;
 
 import org.battleship.model.Constants;
-import org.battleship.model.Notification;
 import org.battleship.model.NotificationArray;
 import org.battleship.model.Participant;
 import org.battleship.utils.ClientRest;
@@ -31,8 +30,8 @@ public class RetrieveParticipants {
 							+ token + "/" + userState);
 			clientRest.execute();
 			
-			NotificationArray notif = (NotificationArray)JsonUtils.getInstance().parseResponse(clientRest.response,"array");
-			String[] users = (String[])notif.data;
+			NotificationArray notif = (NotificationArray)JsonUtils.getInstance().parseResponse(clientRest.response,NotificationArray.class);
+			String[] users = notif.data;
 			
 			for (String user : users) {
 				Participant p = new Participant();
