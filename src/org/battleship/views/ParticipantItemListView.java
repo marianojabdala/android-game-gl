@@ -5,7 +5,9 @@ import org.battleship.model.Participant;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 public class ParticipantItemListView extends LinearLayout {
 	private TextView userNameTV;
 	private ImageView userIcon;
+	private Button declareWarButton;
 	
 	public ParticipantItemListView(Context context, Participant participant) {
 
@@ -39,5 +42,21 @@ public class ParticipantItemListView extends LinearLayout {
 		this.userNameTV.setTextColor(Color.GREEN);
 		this.addView(this.userNameTV, params);
 		
+		this.declareWarButton = new Button(context);
+		this.declareWarButton.setText(R.string.declare_war);
+		this.declareWarButton.setWidth(150);
+		this.declareWarButton.setHeight(50);
+		this.declareWarButton.setOnClickListener(declare_war_button_click_listener);
+		this.addView(declareWarButton);
+		this.setClickable(true); 
+		this.setFocusable(true); 
 	}
+	
+	private OnClickListener declare_war_button_click_listener = new OnClickListener() {
+		public void onClick(View v) {
+		
+		}
+	};
+	
+	
 }
