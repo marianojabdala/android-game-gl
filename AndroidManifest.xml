@@ -6,17 +6,18 @@
 
 	<application android:label="@string/app_name" android:icon="@drawable/ship"
 		android:enabled="true">
-		<activity android:name=".activities.BattleShipActivity" android:label="@string/app_name">
+		<activity android:name=".activities.BattleShipActivity"
+			android:label="@string/app_name">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 		<activity android:name=".activities.LoginActivity">
-	<intent-filter>
-		<category android:name="android.intent.category.DEFAULT" />
-		<action android:name="org.battleship.views.VIEW_LOGIN"></action>
-	</intent-filter>
+			<intent-filter>
+				<category android:name="android.intent.category.DEFAULT" />
+				<action android:name="org.battleship.views.VIEW_LOGIN"></action>
+			</intent-filter>
 		</activity>
 		<activity android:name=".activities.ParticipantsActivity">
 			<intent-filter>
@@ -24,6 +25,12 @@
 				<action android:name="org.battleship.views.VIEW_PARTICIPANTS" />
 			</intent-filter>
 		</activity>
-		
+		<activity android:name=".activities.GameActivity">
+			<intent-filter>
+				<category android:name="android.intent.category.DEFAULT" />
+				<action android:name="org.battleship.views.VIEW_START_WAR"></action>
+			</intent-filter>
+		</activity>
+
 	</application>
 </manifest>

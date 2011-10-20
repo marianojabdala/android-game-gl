@@ -12,6 +12,7 @@ import org.battleship.model.User;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -128,6 +129,9 @@ public class ParticipantsActivity extends ListActivity {
 			Button closeButton = (Button) layout.findViewById(R.id.close_btn);
 			closeButton.setOnClickListener(close_button_click_listener);
 
+			Button startWar = (Button) layout.findViewById(R.id.go_to_war_btn);
+			startWar.setOnClickListener(start_war_button_click_listener);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -136,6 +140,14 @@ public class ParticipantsActivity extends ListActivity {
 	private OnClickListener close_button_click_listener = new OnClickListener() {
 		public void onClick(View v) {
 			mPw.dismiss();
+		}
+	};
+	
+	private OnClickListener start_war_button_click_listener = new OnClickListener() {
+		public void onClick(View v) {
+			//mPw.dismiss();
+			Intent intent  = new Intent(Constants.INTENT_ACTION_START_WAR);
+			startActivity(intent);
 		}
 	};
 
