@@ -10,7 +10,7 @@
     android:columnWidth="10dp"
     android:numColumns="10"
     android:verticalSpacing="0dp"
-    android:horizontalSpacing="0dp"
+    android:horizontalSpacing="10dp"
     android:stretchMode="columnWidth"
     android:gravity="center"
 />

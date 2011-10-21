@@ -3,11 +3,11 @@ package org.battleship.activities;
 import java.util.List;
 
 import org.battleship.R;
+import org.battleship.controller.LoginManager;
 import org.battleship.controller.ParticipantsAdapter;
 import org.battleship.controller.RetrieveParticipants;
 import org.battleship.model.Constants;
 import org.battleship.model.Participant;
-import org.battleship.model.User;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
@@ -42,7 +42,6 @@ public class ParticipantsActivity extends ListActivity {
 	public ProgressDialog mProgressDialog;
 	private List<Participant> mParticipants;
 	private ParticipantsAdapter mParticipantsAdapter;
-	private User mCurrentUser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +49,9 @@ public class ParticipantsActivity extends ListActivity {
 		mProgressDialog = new ProgressDialog(this);
 		setContentView(R.layout.participants);
 		this.mEmpty = (TextView) findViewById(R.id.emptyParticipants);
-		// This code is used to show the current user on top of the list
-		mCurrentUser = (savedInstanceState == null) ? null
-				: (User) savedInstanceState.getSerializable(Constants.USER);
-		if (mCurrentUser == null) {
-			Bundle extras = getIntent().getExtras();
-			mCurrentUser = extras != null ? (User) extras
-					.getSerializable(Constants.USER) : null;
-		}
 
 		TextView currentUserLogged = (TextView) findViewById(R.id.userName_loged_text);
-		String message = "Hello, " + mCurrentUser.username
+		String message = "Hello, " + LoginManager.getInstance().mCurrentUser.username
 				+ ", this is the list of your oponents: ";
 		currentUserLogged.setText(message);
 
@@ -108,7 +99,7 @@ public class ParticipantsActivity extends ListActivity {
 
 	public void loadParticipants() {
 
-		String[] tok = mCurrentUser.token.split("\\n");
+		String[] tok = LoginManager.getInstance().mCurrentUser.token.split("\\n");
 		new GetParticipants().execute(tok[0]);
 	}
 

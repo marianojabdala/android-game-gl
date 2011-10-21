@@ -1,6 +1,8 @@
 package org.battleship.views;
 
 import org.battleship.R;
+import org.battleship.controller.BattleShipAssetsManager;
+import org.battleship.model.Constants;
 import org.battleship.model.Participant;
 
 import android.content.Context;
@@ -33,8 +35,9 @@ public class ParticipantItemListView extends LinearLayout {
 		params.height = 50;
 
 		this.userIcon = new ImageView(context);
-    	this.userIcon.setImageDrawable(getResources().getDrawable(R.drawable.user));
-		this.addView(userIcon);
+//    	this.userIcon.setImageDrawable(getResources().getDrawable(R.drawable.user));
+		this.userIcon.setImageBitmap(BattleShipAssetsManager.getInstance().getBiMapImage(Constants.USER_IMAGE));
+    	this.addView(userIcon);
 		
 		this.userNameTV = new TextView(context);
 		this.userNameTV.setText(participant.username);

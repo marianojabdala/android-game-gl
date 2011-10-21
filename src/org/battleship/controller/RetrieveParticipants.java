@@ -1,6 +1,7 @@
 package org.battleship.controller;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import org.battleship.model.Constants;
 import org.battleship.model.NotificationArray;
@@ -25,18 +26,22 @@ public class RetrieveParticipants {
 
 		try {
 
-			ClientRest clientRest = new ClientRest(
-					Constants.BASE_REST_URL + "/"+ Constants.GET_USER_BY_STATE+ "/"
-							+ token + "/" + userState);
-			clientRest.execute();
+			String url = Constants.BASE_REST_URL + "/"+ Constants.GET_USER_BY_STATE+ "/"
+					+ token + "/" + userState; 
 			
-			NotificationArray notif = (NotificationArray)JsonUtils.getInstance().parseResponse(clientRest.response,NotificationArray.class);
-			String[] users = notif.data;
+			Map<String, String> response = ClientRest.execute( url ); 
 			
-			for (String user : users) {
-				Participant p = new Participant();
-				p.username = user;
-				results.add(p);	
+			int responseCode = Integer.valueOf( response.get("responseCode") );
+			if ( responseCode == 200 ){
+				String data = response.get("response");
+				NotificationArray notif = (NotificationArray)JsonUtils.getInstance().parseResponse( data,NotificationArray.class);
+				String[] users = notif.data;
+			
+				for (String user : users) {
+					Participant p = new Participant();
+					p.username = user;
+					results.add(p);	
+				}
 			}
 		} catch (Exception e) {
 			Log.e("RetrieveParticipants.CLASSTAG", e.getMessage(),e);

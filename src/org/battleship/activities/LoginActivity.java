@@ -4,11 +4,8 @@
 package org.battleship.activities;
 
 import org.battleship.R;
+import org.battleship.controller.LoginManager;
 import org.battleship.model.Constants;
-import org.battleship.model.NotificationString;
-import org.battleship.model.User;
-import org.battleship.utils.ClientRest;
-import org.battleship.utils.JsonUtils;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,10 +26,7 @@ public class LoginActivity extends Activity {
 			.getSimpleName();
 	
 	private EditText mNickName;
-	private ClientRest mclientRest;
-	private double mRandomPass;
-	
-	private User mcurrentUser;
+	private String mRandomPass;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,32 +38,20 @@ public class LoginActivity extends Activity {
 				@Override
 				public void onClick(View arg0) {
 					mNickName = (EditText) findViewById(R.id.nickname_text);
-					
-					mRandomPass = Math.random();
-					
-					Log.v(CLASSTAG, "NickName: " + mNickName.getText().toString() );
-					Log.v(CLASSTAG, "Password: " + mRandomPass );
-					
-					mcurrentUser = new User();
-					mcurrentUser.username = mNickName.getText().toString();
-					mcurrentUser.password = Double.toString(mRandomPass);
-					
-					mclientRest = new ClientRest(
-							Constants.BASE_REST_URL + "/"+ Constants.LOGIN+ "/"
-									+ mcurrentUser.username + "/" + mRandomPass);
-
-					try {
-						mclientRest.execute();
-						NotificationString notif = (NotificationString)JsonUtils.getInstance().parseResponse( mclientRest.response,NotificationString.class );
-						mcurrentUser.token = notif.data;
-					
-					}catch (Exception e) {
-						Log.e(LoginActivity.CLASSTAG, e.getMessage(),e);
+					mRandomPass = Math.random() + "";
+					EditText mErrorMsgText;
+					if ( LoginManager.getInstance().login(mNickName.getText().toString(), mRandomPass) ){
+						mErrorMsgText = (EditText) findViewById(R.id.error_message_txt);
+						mErrorMsgText.setVisibility(EditText.GONE);
+						Intent intent = new Intent(Constants.INTENT_ACTION_VIEW_PARTICIPANTS);
+						startActivity(intent);
+					}else{
+						Log.e(CLASSTAG, LoginManager.getInstance().mErrors);
+						mErrorMsgText = (EditText) findViewById(R.id.error_message_txt);
+						mErrorMsgText.setText( LoginManager.getInstance().mErrors );
+						mErrorMsgText.setVisibility(EditText.VISIBLE);
 					}
 					
-					Intent intent = new Intent(Constants.INTENT_ACTION_VIEW_PARTICIPANTS);
-					intent.putExtra(Constants.USER, mcurrentUser);
-					startActivity(intent);
 				}
 			});
 	}

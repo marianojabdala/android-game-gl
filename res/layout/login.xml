@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:orientation="vertical" android:layout_width="match_parent"
-	android:layout_height="match_parent">
+	android:layout_height="match_parent" android:weightSum="1">
 	<TextView android:layout_width="wrap_content" android:id="@+id/textView1"
 		android:layout_height="wrap_content" android:textAppearance="?android:attr/textAppearanceMedium"
 		android:text="@string/nickname_label"></TextView>
-	<EditText android:layout_width="match_parent"
-		android:layout_height="wrap_content" android:id="@+id/nickname_text">
+	<EditText android:layout_height="wrap_content"
+		android:layout_width="match_parent" android:inputType="textPersonName"
+		android:id="@+id/nickname_text">
 		<requestFocus></requestFocus>
 	</EditText>
-	<Button android:layout_height="wrap_content" android:text="@string/play_btn" android:layout_width="84dp" android:gravity="center" android:id="@+id/play_btn"></Button>
+	<Button android:layout_height="wrap_content" android:text="@string/play_btn"
+		android:layout_width="84dp" android:gravity="center" android:id="@+id/play_btn"></Button>
+	<EditText android:layout_width="match_parent" android:cursorVisible="false" android:editable="false" android:id="@+id/error_message_txt" android:textColor="@drawable/solid_red" android:ellipsize="middle" android:textSize="20px" android:layout_height="50px" android:gravity="center_vertical|center_horizontal" android:visibility="gone"></EditText>
 
 </LinearLayout>

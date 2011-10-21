@@ -2,6 +2,7 @@ package org.battleship.activities;
 
 
 import org.battleship.R;
+import org.battleship.controller.BattleShipAssetsManager;
 import org.battleship.model.Constants;
 
 import android.app.Activity;
@@ -25,6 +26,8 @@ public class BattleShipActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro);
+        
+        BattleShipAssetsManager.getInstance().setManager( getAssets() );
         
         Button play =  (Button) findViewById(R.id.ok_intro_btn);
         play.setOnClickListener(new OnClickListener() {

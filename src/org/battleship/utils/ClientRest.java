@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -19,46 +21,37 @@ import org.apache.http.impl.client.DefaultHttpClient;
  * 
  * */
 
-public class ClientRest {
+public final class ClientRest {
 
 	public String url;
 
-	public int responseCode;
-	public String message;
-
-	public String response;
-
 	public static URLConnection urlConnection;
 
-
-	public ClientRest(String url) {
-		this.url = url;
-	}
-
-	public void execute() throws Exception {
+	public static Map<String,String> execute( String url ) throws Exception {
 		   
 		HttpGet request = new HttpGet(url);
 
-		executeRequest(request, url);
+		return executeRequest(request, url);
 	}
 
-	private void executeRequest(HttpUriRequest request, String url) {
+	private static Map<String,String> executeRequest(HttpUriRequest request, String url) {
 		HttpClient client = new DefaultHttpClient();
 
 		HttpResponse httpResponse;
-
+		Map<String,String> responseMap = new HashMap<String, String>();
+		
 		try {
 			httpResponse = client.execute(request);
-			responseCode = httpResponse.getStatusLine().getStatusCode();
-			message = httpResponse.getStatusLine().getReasonPhrase();
+			responseMap.put("responseCode", httpResponse.getStatusLine().getStatusCode()+"");
+			responseMap.put("message", httpResponse.getStatusLine().getReasonPhrase());
 
 			HttpEntity entity = httpResponse.getEntity();
 
 			if (entity != null) {
 
 				InputStream instream = entity.getContent();
-				response = convertStreamToString(instream);
-
+				String response = convertStreamToString(instream);
+				responseMap.put("response", response);
 				// Closing the input stream will trigger connection release
 				instream.close();
 			}
@@ -70,6 +63,7 @@ public class ClientRest {
 			client.getConnectionManager().shutdown();
 			e.printStackTrace();
 		}
+		return responseMap;
 	}
 
 	private static String convertStreamToString(InputStream is) {
