@@ -5,7 +5,7 @@ import java.util.List;
 import org.battleship.R;
 import org.battleship.controller.LoginManager;
 import org.battleship.controller.ParticipantsAdapter;
-import org.battleship.controller.RetrieveParticipants;
+import org.battleship.controller.ParticipantsManager;
 import org.battleship.model.Constants;
 import org.battleship.model.Participant;
 
@@ -98,9 +98,8 @@ public class ParticipantsActivity extends ListActivity {
 	}
 
 	public void loadParticipants() {
-
-		String[] tok = LoginManager.getInstance().mCurrentUser.token.split("\\n");
-		new GetParticipants().execute(tok[0]);
+		String tok = LoginManager.getInstance().mCurrentUser.token;
+		new GetParticipants().execute(tok);
 	}
 
 	private void initiatePopupWindow() {
@@ -155,8 +154,7 @@ public class ParticipantsActivity extends ListActivity {
 
 		@Override
 		protected Void doInBackground(String... params) {
-			RetrieveParticipants rp = new RetrieveParticipants(Constants.ALL);
-			mParticipants = rp.getParticipants(params[0]);
+			mParticipants = ParticipantsManager.getInstance().getParticipants(params[0], Constants.AVAILABLE ); 
 			return null;
 		}
 

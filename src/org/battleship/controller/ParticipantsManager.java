@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package org.battleship.controller;
 
 import java.util.ArrayList;
@@ -11,16 +14,26 @@ import org.battleship.utils.JsonUtils;
 
 import android.util.Log;
 
-public class RetrieveParticipants {
-	public static String CLASSTAG = RetrieveParticipants.class.getSimpleName();
+/**
+ * @author songoku
+ *
+ */
+public class ParticipantsManager {
+	public static String CLASSTAG = ParticipantsManager.class.getSimpleName();
 
-	public String userState;
-
-	public RetrieveParticipants(String userState) {
-		this.userState = userState;
+	private static ParticipantsManager mInstance;
+	
+	public static ParticipantsManager getInstance(){
+		if ( mInstance == null ){
+			mInstance = new ParticipantsManager();
+		}
+		return mInstance;
+	}
+	
+	private ParticipantsManager() {
 	}
 
-	public ArrayList<Participant> getParticipants(String token) {
+	public ArrayList<Participant> getParticipants(String token,String userState) {
 		long startTime = System.currentTimeMillis();
 		ArrayList<Participant> results = new ArrayList<Participant>();
 
@@ -47,7 +60,7 @@ public class RetrieveParticipants {
 			Log.e("RetrieveParticipants.CLASSTAG", e.getMessage(),e);
 		}
 		long duration = System.currentTimeMillis() - startTime;
-		Log.v(Constants.LOGTAG, RetrieveParticipants.CLASSTAG + " duration - " + duration);
+		Log.v(Constants.LOGTAG, ParticipantsManager.CLASSTAG + " duration - " + duration);
 		return results;
 	}
 }

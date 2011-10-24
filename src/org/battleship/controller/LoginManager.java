@@ -44,10 +44,6 @@ public class LoginManager {
 		Log.v(CLASSTAG, "NickName: " + username );
 		Log.v(CLASSTAG, "Password: " + password );
 		
-		mCurrentUser = new User();
-		mCurrentUser.username = username;
-		mCurrentUser.password = password;
-		
 		String url = Constants.BASE_REST_URL + "/"+ Constants.LOGIN+ "/"
 				+ username + "/" + password; 
 		NotificationString notif = null;
@@ -59,10 +55,15 @@ public class LoginManager {
 			if ( responseCode == 200 ){
 				String data = response.get("response");
 				notif = (NotificationString)JsonUtils.getInstance().parseResponse( data ,NotificationString.class );	
-					mCurrentUser.token = notif.data;
 				if ( !notif.status.equalsIgnoreCase("SUCCESS") ){
 					mErrors = notif.errorMsg;
+				}else{
+					mCurrentUser = new User();
+					mCurrentUser.username = username;
+					mCurrentUser.password = password;					
+					mCurrentUser.token = notif.data.replace("\\n", "");
 				}
+					
 			}			
 			return mErrors == null;
 		

@@ -6,6 +6,7 @@ import org.battleship.model.Constants;
 import org.battleship.model.Participant;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +36,6 @@ public class ParticipantItemListView extends LinearLayout {
 		params.height = 50;
 
 		this.userIcon = new ImageView(context);
-//    	this.userIcon.setImageDrawable(getResources().getDrawable(R.drawable.user));
 		this.userIcon.setImageBitmap(BattleShipAssetsManager.getInstance().getBiMapImage(Constants.USER_IMAGE));
     	this.addView(userIcon);
 		
@@ -57,7 +57,8 @@ public class ParticipantItemListView extends LinearLayout {
 	
 	private OnClickListener declare_war_button_click_listener = new OnClickListener() {
 		public void onClick(View v) {
-		
+			Intent intent  = new Intent(Constants.INTENT_ACTION_START_WAR);
+			v.getContext().startActivity(intent);
 		}
 	};
 	
