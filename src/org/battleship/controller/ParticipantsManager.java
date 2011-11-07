@@ -32,7 +32,7 @@ public class ParticipantsManager {
 	
 	private ParticipantsManager() {
 	}
-
+	
 	public ArrayList<Participant> getParticipants(String token,String userState) {
 		long startTime = System.currentTimeMillis();
 		ArrayList<Participant> results = new ArrayList<Participant>();

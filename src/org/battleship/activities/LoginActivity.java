@@ -34,26 +34,29 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.login);
 		
 		Button play =  (Button) findViewById(R.id.play_btn);
-	        play.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View arg0) {
-					mNickName = (EditText) findViewById(R.id.nickname_text);
-					mRandomPass = Math.random() + "";
-					EditText mErrorMsgText;
-					if ( LoginManager.getInstance().login(mNickName.getText().toString(), mRandomPass) ){
-						mErrorMsgText = (EditText) findViewById(R.id.error_message_txt);
-						mErrorMsgText.setVisibility(EditText.GONE);
-						Intent intent = new Intent(Constants.INTENT_ACTION_VIEW_PARTICIPANTS);
-						startActivity(intent);
-					}else{
-						Log.e(CLASSTAG, LoginManager.getInstance().mErrors);
-						mErrorMsgText = (EditText) findViewById(R.id.error_message_txt);
-						mErrorMsgText.setText( LoginManager.getInstance().mErrors );
-						mErrorMsgText.setVisibility(EditText.VISIBLE);
-					}
-					
-				}
-			});
+	        play.setOnClickListener( go_to_participants_list );
 	}
+	
+	private OnClickListener go_to_participants_list = new OnClickListener() {
+		
+		@Override
+		public void onClick(View arg0) {
+			mNickName = (EditText) findViewById(R.id.nickname_text);
+			mRandomPass = Math.random() + "";
+			EditText mErrorMsgText;
+			if ( LoginManager.getInstance().login(mNickName.getText().toString(), mRandomPass) ){
+				mErrorMsgText = (EditText) findViewById(R.id.error_message_txt);
+				mErrorMsgText.setVisibility(EditText.GONE);
+				Intent intent = new Intent(Constants.INTENT_ACTION_VIEW_PARTICIPANTS);
+				startActivity(intent);
+			}else{
+				Log.e(CLASSTAG, LoginManager.getInstance().mErrors);
+				mErrorMsgText = (EditText) findViewById(R.id.error_message_txt);
+				mErrorMsgText.setText( LoginManager.getInstance().mErrors );
+				mErrorMsgText.setVisibility(EditText.VISIBLE);
+			}
+			
+		}
+	};
 	
 }

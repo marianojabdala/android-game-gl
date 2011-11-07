@@ -18,5 +18,14 @@
     <string name="declare_war">Declare War</string>
     <string name="credits_large">This application was made by Fernando Hernandez( Zeta ) and Mariano Abdala, if you want to contact them write and email to fernando.hernandez@globallogic.com and mariano.abdala@globallogic.com. 
     Thanks for using our game!!!!</string>
+    
+     <string name="incoming_message_notify_text">Show Notification</string>
+
+    <string name="incoming_message_info_message_text">this is the text of a previous message.\nkthx. meet u for dinner. cul8r</string>
+
+    <string name="incoming_message_view_message_text">this is the text of a previous message.\nkthx. meet u for dinner. cul8r</string>
+    <string name="imcoming_message_view_message2_text">Did you notice that the status bar icon disappeared?</string>
+    <string name="imcoming_message_ticker_text">New war notification</string>
+    
     <string name="close">Close</string>
 </resources>

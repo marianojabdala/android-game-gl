@@ -1,52 +1,49 @@
 package org.battleship.activities;
 
-import java.util.List;
+import java.io.Serializable;
 
 import org.battleship.R;
 import org.battleship.controller.LoginManager;
-import org.battleship.controller.ParticipantsAdapter;
-import org.battleship.controller.ParticipantsManager;
-import org.battleship.model.Constants;
-import org.battleship.model.Participant;
+import org.battleship.providers.BattleShipProvider;
+import org.battleship.services.ParticipantsService;
+import org.battleship.services.ParticipantsSyncAdapterService;
+import org.battleship.tasks.GetParticipants;
 
 import android.app.ListActivity;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
 /**
  * @author zeta
  * 
  */
-public class ParticipantsActivity extends ListActivity {
+public class ParticipantsActivity extends ListActivity implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8415406598794867124L;
 
 	public static final String CLASSTAG = ParticipantsActivity.class.getName();
 
 	public static final int MENU_GET_PARTICIPANTS = 1;
 
-	private PopupWindow mPw;
 	private TextView mEmpty;
 	public ProgressDialog mProgressDialog;
-	private List<Participant> mParticipants;
-	private ParticipantsAdapter mParticipantsAdapter;
+	
+	private GetParticipants getPart;//private List<Participant> mParticipants;
+	//private ParticipantsAdapter mParticipantsAdapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mProgressDialog = new ProgressDialog(this);
+		//mProgressDialog = new ProgressDialog(this);
 		setContentView(R.layout.participants);
 		this.mEmpty = (TextView) findViewById(R.id.emptyParticipants);
 
@@ -59,8 +56,18 @@ public class ParticipantsActivity extends ListActivity {
 		listView.setItemsCanFocus(false);
 		listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 		listView.setEmptyView(this.mEmpty);
+		
+		Intent service = new Intent( this ,ParticipantsSyncAdapterService.class);
+		//bindService(service,mConnection, BIND_AUTO_CREATE) ;
+		startService( service );
+		
+		Intent getParticipantsService = new Intent(this,ParticipantsService.class);
+		startService( getParticipantsService );
+		BattleShipProvider.mParticipantsList = this;
+		
 	}
 
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -94,82 +101,12 @@ public class ParticipantsActivity extends ListActivity {
 	@Override
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		initiatePopupWindow();
+		//initiatePopupWindow();
 	}
 
 	public void loadParticipants() {
 		String tok = LoginManager.getInstance().mCurrentUser.token;
-		new GetParticipants().execute(tok);
+		getPart = new GetParticipants( this,true );
+		getPart.execute(tok);
 	}
-
-	private void initiatePopupWindow() {
-		try {
-			// We need to get the instance of the LayoutInflater, use the
-			// context of this activity
-			LayoutInflater inflater = (LayoutInflater) ParticipantsActivity.this
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			// Inflate the view from a predefined XML layout
-			View layout = inflater.inflate(R.layout.accept_decline_popup,
-					(ViewGroup) findViewById(R.id.accept_decline_popup));
-			// create a 300px width and 470px height PopupWindow
-			mPw = new PopupWindow(layout, 300, 470, true);
-			// display the popup in the center
-			mPw.showAtLocation(layout, Gravity.CENTER, 0, 0);
-
-			Button closeButton = (Button) layout.findViewById(R.id.close_btn);
-			closeButton.setOnClickListener(close_button_click_listener);
-
-			Button startWar = (Button) layout.findViewById(R.id.go_to_war_btn);
-			startWar.setOnClickListener(start_war_button_click_listener);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	private OnClickListener close_button_click_listener = new OnClickListener() {
-		public void onClick(View v) {
-			mPw.dismiss();
-		}
-	};
-	
-	private OnClickListener start_war_button_click_listener = new OnClickListener() {
-		public void onClick(View v) {
-			//mPw.dismiss();
-			Intent intent  = new Intent(Constants.INTENT_ACTION_START_WAR);
-			startActivity(intent);
-		}
-	};
-
-	private class GetParticipants extends AsyncTask<String, Void, Void> {
-
-		@Override
-		protected void onPreExecute() {
-			mProgressDialog.setTitle("Working");
-			mProgressDialog.setMessage("Retrieving participants");
-			mProgressDialog.setIndeterminate(true);
-			mProgressDialog.setCancelable(false);
-			mProgressDialog.show();
-		}
-
-		@Override
-		protected Void doInBackground(String... params) {
-			mParticipants = ParticipantsManager.getInstance().getParticipants(params[0], Constants.AVAILABLE ); 
-			return null;
-		}
-
-		@Override
-		protected void onPostExecute(Void result) {
-			mProgressDialog.dismiss();
-			if (mParticipants == null || mParticipants.isEmpty()) {
-				mEmpty.setText("No participants");
-			} else {
-				mParticipantsAdapter = new ParticipantsAdapter(
-						ParticipantsActivity.this, mParticipants);
-				setListAdapter(mParticipantsAdapter);
-			}
-		}
-
-	}
-
 }

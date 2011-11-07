@@ -31,6 +31,14 @@
 				<action android:name="org.battleship.views.VIEW_START_WAR"></action>
 			</intent-filter>
 		</activity>
+		<service android:name=".services.ParticipantsSyncAdapterService">
+			<!-- <intent-filter> -->
+			<!-- <action android:name="android.content.SyncAdapter" /> -->
+			<!-- </intent-filter> -->
+		</service>
+		<service android:name=".services.ParticipantsService"></service>
+		<provider android:name=".providers.BattleShipProvider" 
+		android:authorities="org.battleship.battleshipprovider" android:multiprocess="true"></provider>
 
 	</application>
 </manifest>

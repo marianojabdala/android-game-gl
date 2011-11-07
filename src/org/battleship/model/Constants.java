@@ -10,12 +10,15 @@ public class Constants {
 	public static final String INTENT_ACTION_VIEW_PARTICIPANTS = "org.battleship.views.VIEW_PARTICIPANTS";
 	public static final String INTENT_ACTION_LOGIN = "org.battleship.views.VIEW_LOGIN";
 	public static final String INTENT_ACTION_START_WAR = "org.battleship.views.VIEW_START_WAR";
-//	public static final String BASE_REST_URL = "http://glbattleship.appspot.com/rest";
-	public static final String BASE_REST_URL = "http://192.168.23.6:8080/battleship/rest";
+	public static final String BASE_REST_URL = "http://glbattleship.appspot.com/rest";
+	//public static final String BASE_REST_URL = "http://192.168.23.6:8080/battleship/rest";
 	public static final String GET_USER_BY_STATE = "getUsersByState";
 	public static final String LOGIN = "login";
 	public static final String ACCEPT_WAR = "acceptWar";
+	public static final String DECLARE_WAR = "declareWar";
 	public static final String USER = "user";
+	public static final String GET_NOTIFICATION = "getNotification";
+	public static final String DECLARED_WAR = "DECLARED_WAR";
 	public static String ALL = "ALL";
 	public static String AVAILABLE = "AVAILABLE";
 	public static String NOT_AVAILABLE = "NOT_AVAILABLE";
